@@ -11,7 +11,7 @@
 <body>
     <header>
         <img class="header-banner" src="images/banner.png" alt="bannière du site"> 
-        <svg class="header-logo" width="207" height="25,26" viewBox="0 0 328 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="header-logo" width="207" height="25" viewBox="0 0 328 40" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M0 39.6429V0.357143H7.85714V32.9464H15.9375V39.6429H0Z" fill="white"/>
             <path d="M18.1696 39.6429V0.357143H33.8839V7.94643H26.1607V15.6027H33.5714V22.9911H26.1607V31.9866H34.3973V39.6429H18.1696Z" fill="white"/>
             <path d="M46.3393 40C42.753 40 40.1637 39.1071 38.5714 37.3214C36.994 35.5357 36.2054 32.6935 36.2054 28.7946V24.9554H43.9732V29.8661C43.9732 30.7738 44.1071 31.4881 44.375 32.0089C44.6577 32.5149 45.1414 32.7679 45.8259 32.7679C46.5402 32.7679 47.0312 32.5595 47.2991 32.1429C47.5818 31.7262 47.7232 31.0417 47.7232 30.0893C47.7232 28.8839 47.6042 27.8795 47.3661 27.0759C47.128 26.2574 46.7113 25.4836 46.1161 24.7545C45.5357 24.0104 44.7247 23.1473 43.683 22.1652L40.1562 18.817C37.5223 16.3318 36.2054 13.4896 36.2054 10.2902C36.2054 6.94196 36.9792 4.38988 38.5268 2.63393C40.0893 0.877976 42.3437 0 45.2902 0C48.8914 0 51.4435 0.959821 52.9464 2.87946C54.4643 4.79911 55.2232 7.71577 55.2232 11.6295H47.2321V8.92857C47.2321 8.39286 47.0759 7.97619 46.7634 7.67857C46.4658 7.38095 46.0565 7.23214 45.5357 7.23214C44.9107 7.23214 44.4494 7.41071 44.1518 7.76786C43.869 8.11012 43.7277 8.55655 43.7277 9.10714C43.7277 9.65774 43.8765 10.253 44.1741 10.8929C44.4717 11.5327 45.0595 12.2693 45.9375 13.1027L50.4687 17.4554C51.3765 18.3185 52.2098 19.2336 52.9687 20.2009C53.7277 21.1533 54.3378 22.2693 54.7991 23.5491C55.2604 24.814 55.4911 26.3616 55.4911 28.192C55.4911 31.8824 54.8065 34.7768 53.4375 36.875C52.0833 38.9583 49.7173 40 46.3393 40Z" fill="white"/>
@@ -38,14 +38,19 @@
         </div>     
     </header>
     <main>
-        <div class="tri-container">
-              <button tabIndex="0" id="tri-button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="tri-label"><i class="fa-solid fa-chevron-down"></i></button>
-                <ul id="tri-liste" role="listbox" aria-labelledby="tri-label">
-                  <li tabIndex="0" role="option" data-value="popularite">Popularité</li>
-                  <li tabIndex="0" role="option" data-value="date">Date</li>
-                  <li tabIndex="0"role="option" data-value="titre">Titre</li>
-                </ul>
+      <div class="sorting-container">
+        <div class="sorting-filters">
+          <div class="sorting-buttons">
+          
+          </div>
         </div>
+        <span class="sorting-total" >1500 recettes</span>
+      </div>
+      <section id="menu">
+        <div class="card-container">
+        </div>
+      </section>
     </main>
+    <script src="App.js" type="module"></script>
 </body>
 </html>

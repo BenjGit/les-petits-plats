@@ -1,23 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Anton&family=Manrope&display=swap');
 
 
-
-body{
+body { 
     margin: 0;
+    background-color: #EDEDED; 
 }
 
-header{
-    position: relative;   
+main {
+    padding: 21px 102px;
 }
-.header-banner{
+
+/*---------------- HEADER -------------------*/
+header {
+    position: relative;    
+}
+
+.header-banner {
     width: 100%;
 }
-.header-logo{
+
+.header-logo {
     position: absolute;
     left: 69px;
     top: 51px;
 }
-.header-text{
+
+.header-text {
     position: absolute;
     font-family: 'Anton', sans-serif;
     color: #FFD15B;
@@ -28,13 +36,15 @@ header{
     font-size: 44px;
     font-weight: 400;
 }
-.search-container{
+/* SEARCH BAR */
+.search-container {
     position: absolute;
     left: 50%;
     top: 65%;
     transform: translate(-50%);
 }
-#search-bar{
+
+#search-bar {
     position: relative;
     width: 954px;
     height: 72px;
@@ -44,11 +54,13 @@ header{
     font-family: 'Manrope', sans-serif;
     border: none;
 }
-.fa-magnifying-glass{
+
+.fa-magnifying-glass {
     color: #FFFF;
     font-size: 25px;
 }
-.search-button{
+
+.search-button {
     background-color: #1B1B1B;
     width: 51px;   
     height: 52px;
@@ -58,4 +70,168 @@ header{
     transform: translate(-50%, -50%);
     border-radius: 12px;
     border: none;
+}
+/*---------------- HEADER END -------------------*/
+
+/* SORT */
+.sorting-buttons {
+    display: flex;
+    gap: 64px;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 55px;
+}
+
+.sorting-title {
+    margin-right: 63px;
+}
+
+.sorting-filters{
+    display: flex;
+    gap: 64px;
+    font-family: 'Manrope', sans-serif;
+    color:#1B1B1B;
+    font-size: 16px;
+}
+
+.sorting-total{
+    color:#1B1B1B;
+    font-family: 'Anton', sans-serif;
+    font-size: 21px;
+}
+
+.sorting-button {
+    position: relative;
+    z-index: 0;
+    padding:17px 16px;
+    background-color: #FFFF;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #1B1B1B;
+}
+
+.sorting-button:first-child {
+   margin-left: 2px;
+}
+
+.sorting-list { 
+    z-index: 9999999;
+    list-style: none;
+    background-color: #FFFFFF;
+    border-radius: 11px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    color: #000;
+    height: 315px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    overflow: hidden;
+    display: none;
+}
+  
+.sorting-list--visible {
+    display: block;
+}
+
+.sorting-list li{
+    margin-bottom: 13px;
+}
+.sorting-container{
+    display: flex;
+    justify-content: space-between;
+}
+
+/*------------ CARD -------------*/
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 48px;
+    justify-content: center;
+}
+
+.card {
+    border-radius:21px;
+    max-width: 380px; /* Définit la largeur maximale de chaque élément à 380px */
+    background-color: #FFFFFF;
+    
+     /* Calcule la largeur en pourcentage de l'espace disponible pour chaque élément */
+}
+/* CARD-HEADER */
+.card-header{
+    position: relative;
+    
+}
+
+.card-header img {
+    object-fit: cover;
+    width: 380px;
+    height: 253px;
+    border-radius: 21px 21px 0px 0px;
+}
+
+.card-header .prep-time{
+    position: absolute;
+    top: 21px;
+    right: 21px;
+    background-color: #FFD15B;
+    border-radius: 14px;
+    padding: 5px 15px;
+    font-size: 12px;
+    font-family:  'Manrope', sans-serif;
+    color:#1B1B1B;
+}
+
+.card-body{
+    padding: 32px 25px 40px 25px;
+}
+
+.card-recipe{
+    margin-bottom: 32px;
+}
+
+.card-title{
+    font-family:  'Anton', sans-serif;
+    margin-top: 0;
+    margin-bottom: 29px;
+    font-size: 18px;
+}
+
+.card-subtitle{
+    font-family:  'Manrope', sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    color: #7A7A7A;
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.card-txt{
+    font-family:  'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #1B1B1B;
+}
+
+.card-dose{
+    color:#7A7A7A;
+    font-family:  'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.card-ingredients-container{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card-ingredients{
+    display: flex;
+    flex-direction: column;
+    flex-basis: calc(50% - 10px); /* 10px représente la marge entre les colonnes */
+    margin-bottom: 21px; 
 }
