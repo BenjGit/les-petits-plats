@@ -114,23 +114,31 @@ header {
     color: #1B1B1B;
 }
 
+.sorting-button.active {
+    border-radius: 10px 10px 0 0;
+    
+  }
+
 .sorting-button:first-child {
    margin-left: 2px;
 }
 
 .sorting-list { 
-    z-index: 9999999;
+    z-index: 999;
     list-style: none;
     background-color: #FFFFFF;
-    border-radius: 11px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 11px 11px;
     color: #000;
     height: 315px;
     position: absolute;
     top: 100%;
     left: 0;
+    width: 100%;
+    padding: 0;
+    text-align: left;
     overflow: hidden;
     display: none;
+    margin: 0;
 }
   
 .sorting-list--visible {
@@ -138,8 +146,16 @@ header {
 }
 
 .sorting-list li{
-    margin-bottom: 13px;
+    padding-left: 16px;
+    padding-top: 6.5px;
+    padding-bottom: 6.5px;
 }
+
+.sorting-list li:hover{
+    background-color: #FFD15B;
+}
+
+
 .sorting-container{
     display: flex;
     justify-content: space-between;
@@ -151,19 +167,19 @@ header {
     flex-wrap: wrap;
     gap: 48px;
     justify-content: center;
+    z-index: -1;
+    position: relative;
 }
 
 .card {
     border-radius:21px;
-    max-width: 380px; /* Définit la largeur maximale de chaque élément à 380px */
+    max-width: 380px; 
     background-color: #FFFFFF;
-    
-     /* Calcule la largeur en pourcentage de l'espace disponible pour chaque élément */
+    z-index: 0;
 }
 /* CARD-HEADER */
 .card-header{
     position: relative;
-    
 }
 
 .card-header img {

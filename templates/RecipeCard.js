@@ -3,8 +3,8 @@ import SortingOptions from "./SortingOptions.js";
 export default class RecipeCard{
     constructor(recipe){
         this.recipe = recipe;
-        this.recipeContainer =  document.createElement('div');
-        this.recipeContainer.setAttribute('class', 'card');
+        this.card = document.createElement('div');
+        this.card.setAttribute('class', 'card');
     }
 
     createIngredients() {
@@ -41,7 +41,7 @@ export default class RecipeCard{
             </div>
         `;
 
-        this.recipeContainer.innerHTML = recipeCard
-        return  this.recipeContainer
+        this.card.innerHTML = recipeCard
+        return  this.card
     }
 }

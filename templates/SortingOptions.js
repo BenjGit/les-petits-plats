@@ -1,10 +1,12 @@
 export default class SortingOptions {
-    constructor(items) {
+    constructor(items,label) {
         this.items = items;
+        this.label = label;
         this.sortingContainer = document.querySelector('.sorting-buttons');
         this.optionsContainer = document.createElement("ul");
         this.optionsContainer.setAttribute("class", "sorting-list");
         this.optionsContainer.setAttribute("role", "listbox");
+        this.createSortingOptions();
     }
 
     createOptions() {
@@ -22,35 +24,18 @@ export default class SortingOptions {
       return this.optionsContainer;
     }
 
-    createSortingOptions(appareilsOptions, ustensilsOptions, ingredientsOptions){
+    createSortingOptions(){
 
       const sortingOptions = `
           <div class="sorting-btn">
-          <button tabIndex="0" class="sorting-button" aria-haspopup="listbox" aria-expanded="false">
-              <span class="sorting-title">Ingrédients</span>
-              <i class="fa-solid fa-chevron-down"></i>
-              ${ingredientsOptions.render().outerHTML}
-          </button>
-          
-          </div>
-          <div class="sorting-btn">
-          <button tabIndex="0" class="sorting-button" aria-haspopup="listbox" aria-expanded="false">
-              <span class="sorting-title">Ustensiles</span>
-              <i class="fa-solid fa-chevron-down"></i>
-              ${ustensilsOptions.render().outerHTML}
-          </button>
-          
-          </div>
-          <div class="sorting-btn">
-          <button tabIndex="0" class="sorting-button" aria-haspopup="listbox" aria-expanded="false">
-              <span class="sorting-title">Appareils</span>
-              <i class="fa-solid fa-chevron-down"></i>
-              ${appareilsOptions.render().outerHTML}
-          </button>
-          
-          </div>
-      `;
-      this.sortingContainer.innerHTML = sortingOptions 
+            <button tabIndex="0" class="sorting-button" aria-haspopup="listbox" aria-expanded="false">
+                <span class="sorting-title">${this.label}</span>
+                <i class="fa-solid fa-chevron-down"></i>
+                ${this.render().outerHTML}
+            </button>
+          </div>`;
+
+      this.sortingContainer.innerHTML += sortingOptions 
       return this.sortingContainer
     }
     
