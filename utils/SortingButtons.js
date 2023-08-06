@@ -2,10 +2,12 @@ export default class SortingButtons{
     constructor(){
         this.sortingButton = document.querySelector('.sorting-button');
         this.sortingList = document.querySelector('.sorting-list');
+        this.ButtonsInteraction();
+    }
 
+    ButtonsInteraction(){
         const sortingButtons = document.querySelectorAll('.sorting-button');
 
-        // Ajouter un gestionnaire d'événements à chaque bouton
         sortingButtons.forEach(button => {
             const sortingList = button.querySelector('.sorting-list');
             const currentArrow = button.querySelector('.fa-solid.fa-chevron-down');
@@ -19,4 +21,5 @@ export default class SortingButtons{
             });
         });
     }
+
 }
