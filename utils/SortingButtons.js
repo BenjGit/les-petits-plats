@@ -2,10 +2,10 @@ export default class SortingButtons{
     constructor(){
         this.sortingButton = document.querySelector('.sorting-button');
         this.sortingList = document.querySelector('.sorting-list');
-        this.ButtonsInteraction();
+        this.buttonsInteraction();
     }
 
-    ButtonsInteraction(){
+    buttonsInteraction(){
         const sortingButtons = document.querySelectorAll('.sorting-button');
 
         sortingButtons.forEach(button => {

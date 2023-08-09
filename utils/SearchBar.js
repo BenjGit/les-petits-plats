@@ -1,13 +1,15 @@
+import { recipes } from "../recipe.js";
+import RecipeCard from "../templates/RecipeCard.js";
+
 export default class SearchBar{
-    constructor(items){
-        this.input = document.getElementById('search-bar').value; // récupérer l'entrée de l'utilisateur
-        this.items = items;
-        this.Search();
+    constructor(){
+        this.inputValue = document.getElementById('search-bar').value; // récupérer l'entrée de l'utilisateur
+        this.input = document.getElementById('search-bar');
+        this.search();
     }
 
     normalize(str) {
         const map = {
-            '-': ' ',
             'a': 'á|à|ã|â|À|Á|Ã|Â',
             'e': 'é|è|ê|É|È|Ê',
             'i': 'í|ì|î|Í|Ì|Î',
@@ -21,28 +23,52 @@ export default class SearchBar{
             str = str.replace(new RegExp(map[pattern], 'g'), pattern);
         };
 
-        return str;
+        return str.toLowerCase();
     }
 
-    Search(){
-        if(this.input.length >= 3){
-            const inputNormalized = this.normalize(this.input.toLowerCase());
-
-            const filteredItems = this.items.filter(item => {
-                const itemNormalized = this.normalize(item.toLowerCase());
-                return itemNormalized.includes(inputNormalized);
-            });
-            
-            if(filteredItems.length > 0){
-                console.log(filteredItems);
+    search(){
+        this.input.addEventListener('input', () => {
+            this.inputValue = this.normalize(this.input.value);
+            if(this.inputValue.length >= 3){
+                const matchingRecipeIds = [];
+                recipes.forEach(recipe => {
+                    const cardDescription = this.normalize(recipe.description);
+                    const cardTitle = this.normalize(recipe.name);
+                    const cardIngredients = recipe.ingredients.map(ingredient => this.normalize(ingredient.ingredient));
+                    const cardContent = cardTitle + ',' + cardDescription + ',' + cardIngredients;
+                    
+                    console.log(cardContent);
+                    const hasMatchingItems = cardContent.includes(this.normalize(this.inputValue));
+                    
+                    if (hasMatchingItems) {
+                        matchingRecipeIds.push(recipe.id);
+                    }
+                    else{
+                        console.log("Aucun élément trouvé");
+                    }
+                });
+                this.updateCards(matchingRecipeIds);
+                console.log(matchingRecipeIds);
             }
             else{
-                console.log("Aucun élément trouvé.");
-            } 
-        }
-        else{
-            console.log("Veuillez entrer plus de 3 caractères");
-        }
+                console.log("Veuillez entrer plus de 3 caractères");
+            }
+        
+        });
+    }
+    
+    updateCards(matchingRecipeIds){
+        const recipesContainer = document.querySelector('.card-container')
+        recipesContainer.innerHTML = "";
+
+        recipes.forEach(recipe => {
+            if(matchingRecipeIds.includes(recipe.id)){
+                const recipeTemplate = new RecipeCard(recipe);
+                const recipeCardHtml = recipeTemplate.createRecipeCard();
+                recipesContainer.appendChild(recipeCardHtml);
+            }
+        })
+
     }
 
 }
