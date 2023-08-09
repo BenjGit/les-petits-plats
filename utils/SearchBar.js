@@ -1,5 +1,7 @@
 import { recipes } from "../recipe.js";
 import RecipeCard from "../templates/RecipeCard.js";
+import SortingOptions from "../templates/SortingOptions.js";
+import SortingButtons from "./SortingButtons.js";
 
 export default class SearchBar{
     constructor(){
@@ -48,6 +50,7 @@ export default class SearchBar{
                     }
                 });
                 this.updateCards(matchingRecipeIds);
+               
                 console.log(matchingRecipeIds);
             }
             else{
@@ -69,6 +72,37 @@ export default class SearchBar{
             }
         })
 
+        // Mettre à jour les filtres 
+        this.updateFilters(matchingRecipeIds);
+    }
+
+    updateFilters(matchingRecipeIds){
+        const sortingButtons = document.querySelector('.sorting-buttons');
+        sortingButtons.innerHTML = "";
+
+        const matchingRecipes = recipes.filter(recipe => matchingRecipeIds.includes(recipe.id));//récupérer seulement les recettes correspondantes à l'id de la recherche effeectuée
+
+        let updatedIngredients = [];
+        let updatedUstensils = [];
+        let updatedAppliances = [];
+
+        matchingRecipes.forEach(recipe => {
+                recipe.ingredients.forEach(ingredient => {
+                    updatedIngredients.push(ingredient.ingredient.toLowerCase());
+                });
+                updatedUstensils = updatedUstensils.concat(recipe.ustensils.flat());
+                updatedAppliances.push(recipe.appliance);
+        })
+
+        updatedUstensils = [...new Set( updatedUstensils)];
+        updatedIngredients = [...new Set( updatedIngredients)];
+        updatedAppliances = [...new Set ( updatedAppliances)];
+
+        new SortingOptions(updatedIngredients,"Ingrédients");
+        new SortingOptions(updatedUstensils,"Ustensiles");
+        new SortingOptions(updatedAppliances,"Appareils");
+
+        new SortingButtons();
     }
 
 }

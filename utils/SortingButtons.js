@@ -1,14 +1,12 @@
 export default class SortingButtons{
     constructor(){
-        this.sortingButton = document.querySelector('.sorting-button');
+        this.sortingButtons = document.querySelectorAll('.sorting-button');
         this.sortingList = document.querySelector('.sorting-list');
         this.buttonsInteraction();
     }
 
     buttonsInteraction(){
-        const sortingButtons = document.querySelectorAll('.sorting-button');
-
-        sortingButtons.forEach(button => {
+        this.sortingButtons.forEach(button => {
             const sortingList = button.querySelector('.sorting-list');
             const currentArrow = button.querySelector('.fa-solid.fa-chevron-down');
             button.addEventListener('click', () => {

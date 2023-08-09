@@ -1,7 +1,7 @@
 import RecipeCard from "./templates/RecipeCard.js";
 import { recipes } from "./recipe.js";
 import SortingOptions from "./templates/SortingOptions.js";
-import SortingButtons from "./utils/sortingButtons.js";
+import SortingButtons from "./utils/SortingButtons.js";
 import SearchBar from "./utils/SearchBar.js";
 
 const recipesContainer = document.querySelector('.card-container')
@@ -27,6 +27,7 @@ allIngredients = [...new Set(allIngredients)];
 allAppliances = [...new Set (allAppliances)];
 
 new SearchBar();
+
 new SortingOptions(allIngredients,"Ingrédients");
 new SortingOptions(allUstensils,"Ustensiles");
 new SortingOptions(allAppliances,"Appareils");
