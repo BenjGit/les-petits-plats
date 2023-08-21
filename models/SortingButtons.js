@@ -9,6 +9,7 @@ export default class SortingButtons{
         this.sortingButtons.forEach(button => {
             const sortingList = button.querySelector('.sorting-list');
             const currentArrow = button.querySelector('.fa-solid.fa-chevron-down');
+            const searchBars = document.querySelectorAll('.filters-bar');
             button.addEventListener('click', () => {
                 this.expanded = button.getAttribute('aria-expanded') === 'true';
                 button.setAttribute('aria-expanded', !this.expanded);
@@ -16,6 +17,11 @@ export default class SortingButtons{
                 currentArrow.classList.toggle('fa-chevron-down');
                 currentArrow.classList.toggle('fa-chevron-up');
                 button.classList.toggle('active');
+            });
+            searchBars.forEach(searchBar => {
+                searchBar.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                });
             });
         });
     }

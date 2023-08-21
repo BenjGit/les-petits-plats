@@ -2,6 +2,7 @@ import { recipes } from "../recipe.js";
 import RecipeCard from "../templates/RecipeCard.js";
 import SortingOptions from "../templates/SortingOptions.js";
 import SortingButtons from "./SortingButtons.js";
+import RecipeCounter from "./RecipeCounter.js";
 
 export default class SearchBar{
     constructor(){
@@ -39,7 +40,6 @@ export default class SearchBar{
                     const cardIngredients = recipe.ingredients.map(ingredient => this.normalize(ingredient.ingredient));
                     const cardContent = cardTitle + ',' + cardDescription + ',' + cardIngredients;
                     
-                    console.log(cardContent);
                     const hasMatchingItems = cardContent.includes(this.normalize(this.inputValue));
                     
                     if (hasMatchingItems) {
@@ -76,11 +76,15 @@ export default class SearchBar{
         this.updateFilters(matchingRecipeIds);
     }
 
+    updateCardsByTags(tags){
+
+    }
+
     updateFilters(matchingRecipeIds){
         const sortingButtons = document.querySelector('.sorting-buttons');
         sortingButtons.innerHTML = "";
-
-        const matchingRecipes = recipes.filter(recipe => matchingRecipeIds.includes(recipe.id));//récupérer seulement les recettes correspondantes à l'id de la recherche effeectuée
+        //récupérer seulement les recettes correspondantes à l'id de la recherche effectuée
+        const matchingRecipes = recipes.filter(recipe => matchingRecipeIds.includes(recipe.id));
 
         let updatedIngredients = [];
         let updatedUstensils = [];
@@ -103,6 +107,7 @@ export default class SearchBar{
         new SortingOptions(updatedAppliances,"Appareils");
 
         new SortingButtons();
+        new RecipeCounter();
     }
 
 }

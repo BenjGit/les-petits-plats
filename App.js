@@ -1,8 +1,9 @@
 import RecipeCard from "./templates/RecipeCard.js";
 import { recipes } from "./recipe.js";
 import SortingOptions from "./templates/SortingOptions.js";
-import SortingButtons from "./utils/SortingButtons.js";
-import SearchBar from "./utils/SearchBar.js";
+import SortingButtons from "./models/SortingButtons.js";
+import SearchBar from "./models/SearchBar.js";
+import RecipeCounter from "./models/RecipeCounter.js";
 
 const recipesContainer = document.querySelector('.card-container')
 
@@ -33,6 +34,7 @@ new SortingOptions(allUstensils,"Ustensiles");
 new SortingOptions(allAppliances,"Appareils");
 
 new SortingButtons();
+new RecipeCounter();
 
 
 

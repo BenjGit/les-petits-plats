@@ -55,7 +55,7 @@ header {
     border: none;
 }
 
-.fa-magnifying-glass {
+.search-bar-icon {
     color: #FFFF;
     font-size: 25px;
 }
@@ -72,14 +72,38 @@ header {
     border: none;
 }
 /*---------------- HEADER END -------------------*/
-
+/* FILTERS BAR*/
+.filters-bar-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.filters-bar{
+    position: relative;
+    width: 90%;
+    height: 36px;
+    margin-bottom: 24px;
+    border: 1px solid #C6C6C6;
+    outline: none;
+    color:#7A7A7A;
+    font-size: 14px;
+    padding-left: 8px;
+    font-weight: 400;
+}
+.filters-search-btn{
+    position: absolute;
+    right: 15px;
+    font-size: 16px;
+    top: 13px;
+    color: #7A7A7A;
+}
 /* SORT */
 .sorting-buttons {
     display: flex;
     gap: 64px;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 55px;
+    margin-bottom: 21px;
 }
 
 .sorting-title {
@@ -136,7 +160,7 @@ header {
     width: 100%;
     padding: 0;
     text-align: left;
-    overflow: hidden;
+    overflow-y: auto;
     display: none;
     margin: 0;
 }
@@ -160,7 +184,26 @@ header {
     display: flex;
     justify-content: space-between;
 }
-
+/*---- TAG ----*/
+.tag-list{
+   display: flex;
+   gap: 15px;
+}
+.tag{
+    display: flex;
+    gap: 60px;
+    background-color: #FFD15B;
+    font-size: 14px;
+    font-family:  'Manrope', sans-serif;
+    font-weight: 400;
+    padding:17px 18px 17px 18px;
+    border-radius: 10px;
+}
+.close-btn i{
+    width: 10px;
+    height: 10px;
+    color: #1B1B1B;
+}
 /*------------ CARD -------------*/
 .card-container {
     display: flex;
@@ -169,6 +212,7 @@ header {
     justify-content: center;
     z-index: -1;
     position: relative;
+    margin-top: 43px;
 }
 
 .card {
