@@ -3,44 +3,31 @@ import RecipeCard from "../templates/RecipeCard.js";
 import SortingOptions from "../templates/SortingOptions.js";
 import SortingButtons from "./SortingButtons.js";
 import RecipeCounter from "./RecipeCounter.js";
+import TagManager from "../templates/TagManager.js";
+import normalize from "./Normalize.js";
 
 export default class SearchBar{
-    constructor(){
+    constructor(allIngredients,allUstensils,allAppliances){
+        this.allIngredients = allIngredients;
+        this.allUstensils = allUstensils;
+        this.allAppliances = allAppliances;
         this.inputValue = document.getElementById('search-bar').value; // récupérer l'entrée de l'utilisateur
         this.input = document.getElementById('search-bar');
         this.search();
     }
 
-    normalize(str) {
-        const map = {
-            'a': 'á|à|ã|â|À|Á|Ã|Â',
-            'e': 'é|è|ê|É|È|Ê',
-            'i': 'í|ì|î|Í|Ì|Î',
-            'o': 'ó|ò|ô|õ|Ó|Ò|Ô|Õ',
-            'u': 'ú|ù|û|ü|Ú|Ù|Û|Ü',
-            'c': 'ç|Ç',
-            'n': 'ñ|Ñ'
-        };
-
-        for (let pattern in map) {
-            str = str.replace(new RegExp(map[pattern], 'g'), pattern);
-        };
-
-        return str.toLowerCase();
-    }
-
     search(){
         this.input.addEventListener('input', () => {
-            this.inputValue = this.normalize(this.input.value);
+            this.inputValue = normalize(this.input.value);
             if(this.inputValue.length >= 3){
                 const matchingRecipeIds = [];
                 recipes.forEach(recipe => {
-                    const cardDescription = this.normalize(recipe.description);
-                    const cardTitle = this.normalize(recipe.name);
-                    const cardIngredients = recipe.ingredients.map(ingredient => this.normalize(ingredient.ingredient));
+                    const cardDescription = normalize(recipe.description);
+                    const cardTitle = normalize(recipe.name);
+                    const cardIngredients = recipe.ingredients.map(ingredient => normalize(ingredient.ingredient));
                     const cardContent = cardTitle + ',' + cardDescription + ',' + cardIngredients;
                     
-                    const hasMatchingItems = cardContent.includes(this.normalize(this.inputValue));
+                    const hasMatchingItems = cardContent.includes(normalize(this.inputValue));
                     
                     if (hasMatchingItems) {
                         matchingRecipeIds.push(recipe.id);
@@ -76,38 +63,35 @@ export default class SearchBar{
         this.updateFilters(matchingRecipeIds);
     }
 
-    updateCardsByTags(tags){
-
-    }
-
     updateFilters(matchingRecipeIds){
         const sortingButtons = document.querySelector('.sorting-buttons');
         sortingButtons.innerHTML = "";
         //récupérer seulement les recettes correspondantes à l'id de la recherche effectuée
         const matchingRecipes = recipes.filter(recipe => matchingRecipeIds.includes(recipe.id));
 
-        let updatedIngredients = [];
-        let updatedUstensils = [];
-        let updatedAppliances = [];
+        this.allIngredients = [];
+        this.allUstensils = [];
+        this.allAppliances = [];
 
         matchingRecipes.forEach(recipe => {
                 recipe.ingredients.forEach(ingredient => {
-                    updatedIngredients.push(ingredient.ingredient.toLowerCase());
+                    this.allIngredients.push(ingredient.ingredient.toLowerCase());
                 });
-                updatedUstensils = updatedUstensils.concat(recipe.ustensils.flat());
-                updatedAppliances.push(recipe.appliance);
+                this.allUstensils = this.allUstensils.concat(recipe.ustensils.flat());
+                this.allAppliances.push(recipe.appliance);
         })
 
-        updatedUstensils = [...new Set( updatedUstensils)];
-        updatedIngredients = [...new Set( updatedIngredients)];
-        updatedAppliances = [...new Set ( updatedAppliances)];
+        this.allUstensils = [...new Set(this.allUstensils)];
+        this.allIngredients = [...new Set(this.allIngredients)];
+        this.allAppliances = [...new Set(this.allAppliances)];
 
-        new SortingOptions(updatedIngredients,"Ingrédients");
-        new SortingOptions(updatedUstensils,"Ustensiles");
-        new SortingOptions(updatedAppliances,"Appareils");
+        new SortingOptions(this.allIngredients,"Ingrédients");
+        new SortingOptions(this.allUstensils, "Ustensiles");
+        new SortingOptions(this.allAppliances, "Appareils");
 
         new SortingButtons();
         new RecipeCounter();
+        new TagManager();
     }
 
 }

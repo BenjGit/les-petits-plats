@@ -7,7 +7,6 @@ export default class SortingOptions {
         this.optionsContainer.setAttribute("class", "sorting-list");
         this.optionsContainer.setAttribute("role", "listbox");
         this.createSortingOptions();
-        this.addOptionClickHandlers();
     }
 
     createOptions() {
@@ -41,45 +40,6 @@ export default class SortingOptions {
       return this.sortingContainer
     }
 
-    addOptionClickHandlers() {
-      const options = document.querySelectorAll("li[role='option']");
-      
-      options.forEach((option) => {
-        option.addEventListener('click', () => {
-          const selectedText = option.textContent;
-          this.addTag(selectedText);
-        });
-      });
-    }
-  
-    addTag(text) {
-      const tagList = document.querySelector('.tag-list');
-      console.log(`Tag ajouté : ${text}`);
-
-      const existingTags = Array.from(tagList.querySelectorAll('.tag'));
-      const isDuplicate = existingTags.some((tag) => tag.textContent === text);
-
-      if (isDuplicate) {
-        console.log(`Le tag "${text}" existe déjà.`);
-        return;
-      }
-
-      const tag = document.createElement('div');
-      const tagText = document.createElement('span');
-      const closeBtn = document.createElement('span');
-      const closeIcon = document.createElement('i');
-
-      tagText.setAttribute('class', 'tag-text');
-      tag.setAttribute('class', 'tag');
-      closeBtn.setAttribute('class', 'close-btn');
-      closeIcon.classList.add('fa-solid', 'fa-xmark');
-      
-      tagText.textContent = text;
-
-      closeBtn.appendChild(closeIcon);
-      tag.appendChild(tagText);
-      tag.appendChild(closeBtn);
-      tagList.appendChild(tag);
-    }
+   
 
 }

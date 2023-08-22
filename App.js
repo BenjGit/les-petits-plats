@@ -4,38 +4,42 @@ import SortingOptions from "./templates/SortingOptions.js";
 import SortingButtons from "./models/SortingButtons.js";
 import SearchBar from "./models/SearchBar.js";
 import RecipeCounter from "./models/RecipeCounter.js";
+import TagManager from "./templates/TagManager.js";
 
 const recipesContainer = document.querySelector('.card-container')
 
-let allIngredients = [];
-let allUstensils = [];
-let allAppliances = [];
+export default function updateAllFilters(recipes) {
+    let allIngredients = [];
+    let allUstensils = [];
+    let allAppliances = [];
 
-recipes.forEach(recipe => {
-    recipe.ingredients.forEach(ingredient => {
-        allIngredients.push(ingredient.ingredient.toLowerCase());
+    recipes.forEach(recipe => {
+        recipe.ingredients.forEach(ingredient => {
+            allIngredients.push(ingredient.ingredient.toLowerCase());
+        });
+        allUstensils = allUstensils.concat(recipe.ustensils.flat());
+        allAppliances.push(recipe.appliance); 
+
+        const recipeTemplate = new RecipeCard(recipe);
+        const recipeCardHtml = recipeTemplate.createRecipeCard();
+        recipesContainer.appendChild(recipeCardHtml);
     });
-    allUstensils = allUstensils.concat(recipe.ustensils.flat());
-    allAppliances.push(recipe.appliance); 
 
-    const recipeTemplate = new RecipeCard(recipe);
-    const recipeCardHtml = recipeTemplate.createRecipeCard();
-    recipesContainer.appendChild(recipeCardHtml);
-});
+    allUstensils = [...new Set(allUstensils)];
+    allIngredients = [...new Set(allIngredients)];
+    allAppliances = [...new Set (allAppliances)];
 
-allUstensils = [...new Set(allUstensils)];
-allIngredients = [...new Set(allIngredients)];
-allAppliances = [...new Set (allAppliances)];
+    new SortingOptions(allIngredients,"Ingrédients");
+    new SortingOptions(allUstensils,"Ustensiles");
+    new SortingOptions(allAppliances,"Appareils");
+
+    new SortingButtons();
+    new RecipeCounter();
+    new TagManager();
+}
 
 new SearchBar();
 
-new SortingOptions(allIngredients,"Ingrédients");
-new SortingOptions(allUstensils,"Ustensiles");
-new SortingOptions(allAppliances,"Appareils");
-
-new SortingButtons();
-new RecipeCounter();
-
-
+updateAllFilters(recipes);
 
 
