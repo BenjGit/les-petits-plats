@@ -5,6 +5,7 @@ import SortingButtons from "./SortingButtons.js";
 import RecipeCounter from "./RecipeCounter.js";
 import TagManager from "../templates/TagManager.js";
 import normalize from "./Normalize.js";
+import updateAllFilters from "../templates/UpdateAllFilters.js";
 
 export default class SearchBar{
     constructor(allIngredients,allUstensils,allAppliances){
@@ -69,28 +70,7 @@ export default class SearchBar{
         //récupérer seulement les recettes correspondantes à l'id de la recherche effectuée
         const matchingRecipes = recipes.filter(recipe => matchingRecipeIds.includes(recipe.id));
 
-        this.allIngredients = [];
-        this.allUstensils = [];
-        this.allAppliances = [];
-
-        matchingRecipes.forEach(recipe => {
-                recipe.ingredients.forEach(ingredient => {
-                    this.allIngredients.push(ingredient.ingredient.toLowerCase());
-                });
-                this.allUstensils = this.allUstensils.concat(recipe.ustensils.flat());
-                this.allAppliances.push(recipe.appliance);
-        })
-
-        this.allUstensils = [...new Set(this.allUstensils)];
-        this.allIngredients = [...new Set(this.allIngredients)];
-        this.allAppliances = [...new Set(this.allAppliances)];
-
-        new SortingOptions(this.allIngredients,"Ingrédients");
-        new SortingOptions(this.allUstensils, "Ustensiles");
-        new SortingOptions(this.allAppliances, "Appareils");
-
-        new SortingButtons();
-        new RecipeCounter();
+        updateAllFilters(matchingRecipes);
         new TagManager();
     }
 

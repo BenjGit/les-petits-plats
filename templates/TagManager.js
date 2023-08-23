@@ -4,11 +4,15 @@ import SortingOptions from "./SortingOptions.js";
 import RecipeCounter from "../models/RecipeCounter.js";
 import normalize from "../models/Normalize.js";
 import RecipeCard from "./RecipeCard.js";
+import updateAllFilters from "./UpdateAllFilters.js";
 
 export default class TagManager{
     constructor(){
         this.tags = []; // Variable de classe pour stocker les tags
         this.addOptionClickHandlers();
+        this.inputIngredients = document.getElementById('filter-bar-ingredients');
+        this.inputAppliances = document.getElementById('filter-bar-appliances');
+        this.inputUstensils = document.getElementById('filter-bar-ustensils');
     }
 
     addOptionClickHandlers() {
@@ -18,9 +22,9 @@ export default class TagManager{
             option.addEventListener('click', () => {
                 const selectedText = option.textContent;
                 this.addTag(selectedText);
-              });
+                });
         });
-      }
+    }
     
     addTag(text) {
         const tagList = document.querySelector('.tag-list');
@@ -59,6 +63,46 @@ export default class TagManager{
         });
     }
     
+    searchFiltersBar(){
+        this.inputIngredients.addEventListener('input', () => {
+            this.inputIngredientsValue = normalize(this.inputIngredients.value);
+            if(this.inputIngredientsValue.length >= 3){
+                const matchingAppliances = [];
+                const matchingUstensils = [];
+                const matchingIngredients = [];
+                recipes.forEach(recipe => {
+                    const cardAppliances = normalize(recipe.appliance);
+                    const cardUstensils = normalize(recipe.ustensils);
+                    const cardIngredients = recipe.ingredients.map(ingredient => normalize(ingredient.ingredient));
+                
+                    const hasMatchingAppliances = cardAppliances.includes(normalize(this.inputValue));
+                    const hasMatchingUstensils = cardUstensils.includes(normalize(this.inputValue));
+                    const hasMatchingIngredients = cardIngredients.includes(normalize(this.inputValue));
+                    
+                    if (hasMatchingAppliances) {
+                        matchingAppliances.push(recipe.id);
+                    }
+                    if (hasMatchingUstensils) {
+                        matchingUstensils.push(recipe.id);
+                    }
+                    if (hasMatchingIngredients) {
+                        matchingIngredients.push(recipe.id);
+                    }
+
+                    else{
+                        console.log("Aucun élément trouvé");
+                    }
+                });
+                this.updateCards(matchingRecipeIds);
+               
+                console.log(matchingRecipeIds);
+            }
+            else{
+                console.log("Veuillez entrer plus de 3 caractères");
+            }
+        
+        });
+    }
 
     generateTagsForRecipe(recipe) {
         const tags = [];
@@ -118,28 +162,7 @@ export default class TagManager{
           return selectedTags.every(tag => cardTags.includes(normalize(tag)));
         });
       
-        let updatedIngredients = [];
-        let updatedUstensils = [];
-        let updatedAppliances = [];
-      
-        matchingRecipes.forEach(recipe => {
-          recipe.ingredients.forEach(ingredient => {
-            updatedIngredients.push(ingredient.ingredient.toLowerCase());
-          });
-          updatedUstensils = updatedUstensils.concat(recipe.ustensils.flat());
-          updatedAppliances.push(recipe.appliance);
-        });
-      
-        updatedUstensils = [...new Set(updatedUstensils)];
-        updatedIngredients = [...new Set(updatedIngredients)];
-        updatedAppliances = [...new Set(updatedAppliances)];
-      
-        new SortingOptions(updatedIngredients, "Ingrédients");
-        new SortingOptions(updatedUstensils, "Ustensiles");
-        new SortingOptions(updatedAppliances, "Appareils");
-      
-        new SortingButtons();
-        new RecipeCounter();
+        updateAllFilters(matchingRecipes);
         this.addOptionClickHandlers();
     }
 

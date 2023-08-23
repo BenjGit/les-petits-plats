@@ -1,7 +1,8 @@
 export default class SortingOptions {
-    constructor(items,label) {
+    constructor(items,label,filterBarId) {
         this.items = items;
         this.label = label;
+        this.filterBarId = filterBarId;
         this.sortingContainer = document.querySelector('.sorting-buttons');
         this.optionsContainer = document.createElement("ul");
         this.optionsContainer.setAttribute("class", "sorting-list");
@@ -11,7 +12,8 @@ export default class SortingOptions {
 
     createOptions() {
       let optionsHtml = '';
-      optionsHtml+= `<div class="filters-bar-container"><input type="text" class="filters-bar">
+      optionsHtml+= `<div class="filters-bar-container">
+      <input type="text" class="filters-bar" id="${this.filterBarId}">
       <i class="filters-search-btn fa-solid fa-magnifying-glass"></i></div>`
       this.items.forEach((item) => {
         optionsHtml += `
