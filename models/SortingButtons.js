@@ -9,7 +9,7 @@ export default class SortingButtons{
         this.sortingButtons.forEach(button => {
             const sortingList = button.querySelector('.sorting-list');
             const currentArrow = button.querySelector('.fa-solid.fa-chevron-down');
-            const searchBars = document.querySelectorAll('.filters-bar');
+            let searchBars = document.querySelectorAll('.filters-bar');
             button.addEventListener('click', () => {
                 this.expanded = button.getAttribute('aria-expanded') === 'true';
                 button.setAttribute('aria-expanded', !this.expanded);

@@ -10,9 +10,6 @@ export default class TagManager{
     constructor(){
         this.tags = []; // Variable de classe pour stocker les tags
         this.addOptionClickHandlers();
-        this.inputIngredients = document.getElementById('filter-bar-ingredients');
-        this.inputAppliances = document.getElementById('filter-bar-appliances');
-        this.inputUstensils = document.getElementById('filter-bar-ustensils');
     }
 
     addOptionClickHandlers() {
@@ -63,46 +60,7 @@ export default class TagManager{
         });
     }
     
-    searchFiltersBar(){
-        this.inputIngredients.addEventListener('input', () => {
-            this.inputIngredientsValue = normalize(this.inputIngredients.value);
-            if(this.inputIngredientsValue.length >= 3){
-                const matchingAppliances = [];
-                const matchingUstensils = [];
-                const matchingIngredients = [];
-                recipes.forEach(recipe => {
-                    const cardAppliances = normalize(recipe.appliance);
-                    const cardUstensils = normalize(recipe.ustensils);
-                    const cardIngredients = recipe.ingredients.map(ingredient => normalize(ingredient.ingredient));
-                
-                    const hasMatchingAppliances = cardAppliances.includes(normalize(this.inputValue));
-                    const hasMatchingUstensils = cardUstensils.includes(normalize(this.inputValue));
-                    const hasMatchingIngredients = cardIngredients.includes(normalize(this.inputValue));
-                    
-                    if (hasMatchingAppliances) {
-                        matchingAppliances.push(recipe.id);
-                    }
-                    if (hasMatchingUstensils) {
-                        matchingUstensils.push(recipe.id);
-                    }
-                    if (hasMatchingIngredients) {
-                        matchingIngredients.push(recipe.id);
-                    }
-
-                    else{
-                        console.log("Aucun élément trouvé");
-                    }
-                });
-                this.updateCards(matchingRecipeIds);
-               
-                console.log(matchingRecipeIds);
-            }
-            else{
-                console.log("Veuillez entrer plus de 3 caractères");
-            }
-        
-        });
-    }
+    
 
     generateTagsForRecipe(recipe) {
         const tags = [];
@@ -110,23 +68,17 @@ export default class TagManager{
         // Générer les tags à partir des ingrédients
         recipe.ingredients.forEach((ingredient) => {
             const normalizedIngredient = normalize(ingredient.ingredient);
-            if (!tags.includes(normalizedIngredient)) {
             tags.push(normalizedIngredient);
-            }
         });
         
         // Générer les tags à partir de l'appareil
-        const normalizedAppliance = normalize(recipe.appliance);
-        if (!tags.includes(normalizedAppliance)) {
+            const normalizedAppliance = normalize(recipe.appliance);
             tags.push(normalizedAppliance);
-        }
         
         // Générer les tags à partir des ustensiles
         recipe.ustensils.forEach((ustensil) => {
             const normalizedUstensil = normalize(ustensil);
-            if (!tags.includes(normalizedUstensil)) {
             tags.push(normalizedUstensil);
-            }
         });
         
         return tags;
@@ -142,9 +94,9 @@ export default class TagManager{
             const hasMatchingTags = selectedTags.every(tag => cardTags.includes(normalize(tag)));
         
             if (hasMatchingTags) {
-            const recipeTemplate = new RecipeCard(recipe);
-            const recipeCardHtml = recipeTemplate.createRecipeCard();
-            recipesContainer.appendChild(recipeCardHtml);
+                const recipeTemplate = new RecipeCard(recipe);
+                const recipeCardHtml = recipeTemplate.createRecipeCard();
+                recipesContainer.appendChild(recipeCardHtml);
             }
         });
         

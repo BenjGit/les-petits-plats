@@ -12,18 +12,44 @@ export default function updateAllFilters(recipes) {
         recipe.ingredients.forEach(ingredient => {
             allIngredients.push(ingredient.ingredient.toLowerCase());
         });
-        allUstensils = allUstensils.concat(recipe.ustensils.flat());
-        allAppliances.push(recipe.appliance); 
+        allUstensils = allUstensils.concat(recipe.ustensils.flat().map(item => item.toLowerCase()));
+        allAppliances.push(recipe.appliance.toLowerCase()); 
     });
+
 
     allUstensils = [...new Set(allUstensils)];
     allIngredients = [...new Set(allIngredients)];
     allAppliances = [...new Set (allAppliances)];
+    console.log(allUstensils);
 
-    new SortingOptions(allIngredients,"Ingrédients","filter-bar-ingredients");
-    new SortingOptions(allUstensils,"Ustensiles","filter-bar-ustensils");
-    new SortingOptions(allAppliances,"Appareils","filter-bar-appliances");
+    const ingredientsOption = new SortingOptions(allIngredients,"Ingrédients","filter-bar-ingredients");
+    const ustensilsOption = new SortingOptions(allUstensils,"Ustensiles","filter-bar-ustensils");
+    const appliancesOption = new SortingOptions(allAppliances,"Appareils","filter-bar-appliances");
+
+    ingredientsOption.searchInFilters();
+    ustensilsOption.searchInFilters();
+    appliancesOption.searchInFilters();
 
     new SortingButtons();
     new RecipeCounter();
+
+    return {
+        getAllIngredients: () => allIngredients,
+        getAllUstensils: () => allUstensils,
+        getAllAppliances: () => allAppliances,
+        setIngredients: (ingredients) => {
+            allIngredients = ingredients;
+          }
+    };
 }
+
+// export function createButtons(ingredients){
+//     new SortingOptions(ingredients,"Ingrédients","filter-bar-ingredients");
+//     new SortingOptions(allUstensils,"Ustensiles","filter-bar-ustensils");
+//     new SortingOptions(allAppliances,"Appareils","filter-bar-appliances");
+
+//     new SortingButtons();
+// }
+
+// updateAllFilters(recipes);
+// createButtons(allIngredients);
