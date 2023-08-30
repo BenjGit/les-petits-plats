@@ -27,8 +27,7 @@ export default class SortingOptions {
     }
     
     createOptions(items) {
-      let optionsHtml = '';
-      optionsHtml +=  `${this.createFilterBar()}`
+      let optionsHtml = ''
       items.forEach((item) => {
         optionsHtml += `
           <li tabIndex="0" role="option">${item}</li>
@@ -43,7 +42,9 @@ export default class SortingOptions {
             <button tabIndex="0" class="sorting-button" aria-haspopup="listbox" aria-expanded="false">
                 <span class="sorting-title">${this.label}</span>
                 <i class="fa-solid fa-chevron-down"></i>
+                
                 <ul class="sorting-list" data-id="${this.filterBarId}">
+                ${this.createFilterBar()}
                 ${this.createOptions(this.items)}
                 </ul>
             </button>
@@ -55,21 +56,31 @@ export default class SortingOptions {
 
     searchInFilters() {
       const inputSearchBar = document.getElementById(this.filterBarId);
-      inputSearchBar.addEventListener('keydown', (event) => {
-        if(event.code == "Enter")
-        {
-          const inputValue = normalize(inputSearchBar.value);
-          if (inputValue.length >= 3) {
-            const newItems = this.items.filter((item) => normalize(item).includes(inputValue));
-            this.optionsContainer = document.querySelector(`ul[data-id="${this.filterBarId}"]`);
-            this.optionsContainer.innerHTML = this.createOptions(newItems);
-          } 
-        }
-        else {
-          console.log("Veuillez entrer plus de 3 caractères");
+      const optionsContainer = document.querySelector(`ul[data-id="${this.filterBarId}"]`);
+      const originalItems = [...this.items]; // Copie de tous les éléments d'origine
+
+      const updateOptions = (newItems) => {
+        // Supprimer les options existantes
+        const options = optionsContainer.querySelectorAll("li[role='option']");
+        options.forEach((option) => {
+          option.remove();
+        });
+
+        // Ajouter les nouvelles options
+        const newOptionsHTML = this.createOptions(newItems);
+        optionsContainer.insertAdjacentHTML('beforeend', newOptionsHTML);
+      };
+
+      inputSearchBar.addEventListener('input', () => {
+        const inputValue = normalize(inputSearchBar.value);
+        if (inputValue.length >= 3) {
+          const newItems = originalItems.filter((item) => normalize(item).includes(inputValue));
+          updateOptions(newItems);
+        } else {
+          updateOptions(this.items);
         }
       });
-    }
+}
 
    
 
