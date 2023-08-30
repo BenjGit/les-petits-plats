@@ -57,7 +57,6 @@ export default class SortingOptions {
     searchInFilters() {
       const inputSearchBar = document.getElementById(this.filterBarId);
       const optionsContainer = document.querySelector(`ul[data-id="${this.filterBarId}"]`);
-      const originalItems = [...this.items]; // Copie de tous les éléments d'origine
 
       const updateOptions = (newItems) => {
         // Supprimer les options existantes
