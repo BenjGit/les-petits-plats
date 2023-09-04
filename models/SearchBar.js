@@ -22,12 +22,12 @@ export default class SearchBar{
             this.inputValue = normalize(this.input.value);
             if(this.inputValue.length >= 3){
                 const matchingRecipeIds = [];
-                recipes.forEach(recipe => {
+                for(let i = 0; i < recipes.length; i++){
+                    const recipe = recipes[i];
                     const cardDescription = normalize(recipe.description);
                     const cardTitle = normalize(recipe.name);
                     const cardIngredients = recipe.ingredients.map(ingredient => normalize(ingredient.ingredient));
                     const cardContent = cardTitle + ',' + cardDescription + ',' + cardIngredients;
-                    
                     const hasMatchingItems = cardContent.includes(normalize(this.inputValue));
                     
                     if (hasMatchingItems) {
@@ -36,7 +36,7 @@ export default class SearchBar{
                     else{
                         console.log("Aucun élément trouvé");
                     }
-                });
+                };
                 this.updateCards(matchingRecipeIds);
                
                 console.log(matchingRecipeIds);
@@ -52,16 +52,14 @@ export default class SearchBar{
         const recipesContainer = document.querySelector('.card-container')
         recipesContainer.innerHTML = "";
 
-        recipes.forEach(recipe => {
+        for(let i = 0; i < recipes.length; i++){
+            const recipe = recipes[i];
             if(matchingRecipeIds.includes(recipe.id)){
                 const recipeTemplate = new RecipeCard(recipe);
                 const recipeCardHtml = recipeTemplate.createRecipeCard();
                 recipesContainer.appendChild(recipeCardHtml);
             }
-        })
-
-        // Mettre à jour les filtres 
-        this.updateFilters(matchingRecipeIds);
+        }
     }
 
     updateFilters(matchingRecipeIds){

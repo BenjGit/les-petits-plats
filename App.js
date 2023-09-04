@@ -1,7 +1,7 @@
 import RecipeCard from "./templates/RecipeCard.js";
 import { recipes } from "./recipe.js";
 import updateAllFilters from "./templates/UpdateAllFilters.js";
-import SearchBar from "./models/SearchBar.js";
+import SearchBar from "./models/SearchBar2.js";
 import TagManager from "./templates/TagManager.js";
 
 const recipesContainer = document.querySelector('.card-container')
