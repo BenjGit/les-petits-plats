@@ -73,7 +73,7 @@ export default class SortingOptions {
       inputSearchBar.addEventListener('input', () => {
         const inputValue = normalize(inputSearchBar.value);
         if (inputValue.length >= 3) {
-          const newItems = originalItems.filter((item) => normalize(item).includes(inputValue));
+          const newItems = this.items.filter((item) => normalize(item).includes(inputValue));
           updateOptions(newItems);
         } else {
           updateOptions(this.items);
