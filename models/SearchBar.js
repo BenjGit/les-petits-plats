@@ -20,6 +20,14 @@ export default class SearchBar {
 
     search() {
         this.inputValue = normalize(this.input.value);
+        const userInput = this.inputValue;
+        const regex = /^[a-zA-Z\s]+$/; // Expression régulière pour vérifier les lettres et espaces
+      
+        if (!regex.test(userInput)) {
+          console.log("L'entrée contient des caractères non autorisés.");
+          return;
+        }
+        
         if (this.inputValue.length >= 3) {
             const matchingRecipeIds = [];
             for (let i = 0; i < recipes.length; i++) {

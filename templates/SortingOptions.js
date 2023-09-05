@@ -57,6 +57,14 @@ export default class SortingOptions {
     searchInFilters() {
       const inputSearchBar = document.getElementById(this.filterBarId);
       const inputValue = normalize(inputSearchBar.value);
+      
+      const userInput = inputValue;
+      const regex = /^[a-zA-Z\s]+$/; // Expression régulière pour vérifier les lettres et espaces
+      
+        if (!regex.test(userInput)) {
+          console.log("L'entrée contient des caractères non autorisés.");
+          return;
+        }
           
         if (inputValue.length >= 3) {
           const newItems = this.items.filter((item) => normalize(item).includes(inputValue));
