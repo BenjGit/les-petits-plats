@@ -12,15 +12,15 @@ export default class SortingOptions {
         this.optionsContainer.setAttribute("class", "sorting-list");
         this.optionsContainer.setAttribute("role", "listbox");
         this.optionsContainer.setAttribute("data-filter-bar-id", this.filterBarId);
+        this.searchButtons = document.querySelectorAll('.filters-search-btn');
         this.createSortingOptions();
-        this.searchInFilters();
     }
 
     createFilterBar() {
       const filterBarHtml = `
         <div class="filters-bar-container">
-          <input type="text" class="filters-bar" id="${this.filterBarId}">
-          <i class="filters-search-btn fa-solid fa-magnifying-glass"></i>
+          <input type="text" class="filters-bar" id="${this.filterBarId}"><i class="clear-filter-button fa-solid fa-xmark" data-id="${this.filterBarId}"></i>
+          <i class="filters-search-btn fa-solid fa-magnifying-glass" data-id="${this.filterBarId}"></i>
         </div>
       `;
       return filterBarHtml;
@@ -56,31 +56,65 @@ export default class SortingOptions {
 
     searchInFilters() {
       const inputSearchBar = document.getElementById(this.filterBarId);
-      const optionsContainer = document.querySelector(`ul[data-id="${this.filterBarId}"]`);
 
-      const updateOptions = (newItems) => {
-        // Supprimer les options existantes
-        const options = optionsContainer.querySelectorAll("li[role='option']");
-        options.forEach((option) => {
-          option.remove();
+          const inputValue = normalize(inputSearchBar.value);
+          if (inputValue.length >= 3) {
+            const newItems = this.items.filter((item) => normalize(item).includes(inputValue));
+            this.updateOptions(newItems);
+          } 
+          else {
+            this.updateOptions(this.items);
+          }
+    }
+  
+    updateOptions (newItems){
+      // Supprimer les options existantes
+      const optionsContainer = document.querySelector(`ul[data-id="${this.filterBarId}"]`);
+      const options = optionsContainer.querySelectorAll("li[role='option']");
+      
+      options.forEach((option) => {
+        option.remove();
+      });
+
+      // Ajouter les nouvelles options
+      const newOptionsHTML = this.createOptions(newItems);
+      optionsContainer.insertAdjacentHTML('beforeend', newOptionsHTML);
+      new TagManager();
+    };
+
+    buttonsEventListeneners(){
+      const inputSearchBar = document.getElementById(this.filterBarId);
+      const searchButton = document.querySelector(`.filters-search-btn[data-id="${this.filterBarId}"]`);;
+      const clearFilterButton = document.querySelector(`.clear-filter-button[data-id="${this.filterBarId}"]`)
+      
+      clearFilterButton.style.visibility = 'hidden';
+      searchButton.addEventListener('click', () => {
+          this.searchInFilters();
         });
 
-        // Ajouter les nouvelles options
-        const newOptionsHTML = this.createOptions(newItems);
-        optionsContainer.insertAdjacentHTML('beforeend', newOptionsHTML);
-      };
+      inputSearchBar.addEventListener('keydown', (event) => {
+        if (event.keyCode === 13) {
+        this.searchInFilters();
+        }
+      })
 
       inputSearchBar.addEventListener('input', () => {
-        const inputValue = normalize(inputSearchBar.value);
-        if (inputValue.length >= 3) {
-          const newItems = this.items.filter((item) => normalize(item).includes(inputValue));
-          updateOptions(newItems);
-        } else {
-          updateOptions(this.items);
+        if ( inputSearchBar.value.length > 0) {
+          clearFilterButton.style.visibility = 'visible';
+        }
+        else {
+          clearFilterButton.style.visibility = 'hidden';
+          this.updateOptions(this.items);
         }
       });
-}
 
+      clearFilterButton.addEventListener('click', () => {
+        inputSearchBar.value = '';
+        clearFilterButton.style.visibility = 'hidden';
+        this.updateOptions(this.items);
+      });
+
+    }
    
 
 }

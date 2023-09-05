@@ -1,4 +1,4 @@
-import { recipes } from "../recipe.js";
+import { recipes } from "../Recipe.js";
 import SortingButtons from "../models/SortingButtons.js";
 import SortingOptions from "./SortingOptions.js";
 import RecipeCounter from "../models/RecipeCounter.js";

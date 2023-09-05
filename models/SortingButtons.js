@@ -10,6 +10,8 @@ export default class SortingButtons{
             const sortingList = button.querySelector('.sorting-list');
             const currentArrow = button.querySelector('.fa-solid.fa-chevron-down');
             let searchBars = document.querySelectorAll('.filters-bar');
+            const searchFilterButtons = document.querySelectorAll('.filters-search-btn')
+            const clearFilterButtons = document.querySelectorAll('.clear-filter-button')
             button.addEventListener('click', () => {
                 this.expanded = button.getAttribute('aria-expanded') === 'true';
                 button.setAttribute('aria-expanded', !this.expanded);
@@ -20,6 +22,16 @@ export default class SortingButtons{
             });
             searchBars.forEach(searchBar => {
                 searchBar.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                });
+            });
+            searchFilterButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    event.stopPropagation();
+                });
+            });
+            clearFilterButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
                     event.stopPropagation();
                 });
             });
