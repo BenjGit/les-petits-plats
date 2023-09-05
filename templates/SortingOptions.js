@@ -56,15 +56,15 @@ export default class SortingOptions {
 
     searchInFilters() {
       const inputSearchBar = document.getElementById(this.filterBarId);
-
-          const inputValue = normalize(inputSearchBar.value);
-          if (inputValue.length >= 3) {
-            const newItems = this.items.filter((item) => normalize(item).includes(inputValue));
-            this.updateOptions(newItems);
-          } 
-          else {
-            this.updateOptions(this.items);
-          }
+      const inputValue = normalize(inputSearchBar.value);
+          
+        if (inputValue.length >= 3) {
+          const newItems = this.items.filter((item) => normalize(item).includes(inputValue));
+          this.updateOptions(newItems);
+        } 
+        else {
+          this.updateOptions(this.items);
+        }
     }
   
     updateOptions (newItems){
@@ -94,7 +94,7 @@ export default class SortingOptions {
 
       inputSearchBar.addEventListener('keydown', (event) => {
         if (event.keyCode === 13) {
-        this.searchInFilters();
+          this.searchInFilters();
         }
       })
 

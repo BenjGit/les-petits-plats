@@ -19,7 +19,7 @@ export default class TagManager{
             option.addEventListener('click', () => {
                 const selectedText = option.textContent;
                 this.addTag(selectedText);
-                });
+            });
         });
     }
     

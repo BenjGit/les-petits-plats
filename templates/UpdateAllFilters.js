@@ -39,7 +39,7 @@ export default function updateAllFilters(recipes) {
         getAllAppliances: () => allAppliances,
         setIngredients: (ingredients) => {
             allIngredients = ingredients;
-          }
+        }
     };
 }
 
