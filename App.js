@@ -1,5 +1,5 @@
 import RecipeCard from "./templates/RecipeCard.js";
-import { recipes } from "./recipe.js";
+import { recipes } from "./Recipe.js";
 import updateAllFilters from "./templates/UpdateAllFilters.js";
 import SearchBar from "./models/SearchBar.js";
 import TagManager from "./templates/TagManager.js";

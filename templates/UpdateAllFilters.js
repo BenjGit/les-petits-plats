@@ -26,9 +26,9 @@ export default function updateAllFilters(recipes) {
     const ustensilsOption = new SortingOptions(allUstensils,"Ustensiles","filter-bar-ustensils");
     const appliancesOption = new SortingOptions(allAppliances,"Appareils","filter-bar-appliances");
 
-    ingredientsOption.searchInFilters();
-    ustensilsOption.searchInFilters();
-    appliancesOption.searchInFilters();
+    ingredientsOption.buttonsEventListeneners();
+    ustensilsOption.buttonsEventListeneners();
+    appliancesOption.buttonsEventListeneners();
 
     new SortingButtons();
     new RecipeCounter();
