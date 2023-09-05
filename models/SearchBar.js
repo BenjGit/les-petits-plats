@@ -19,7 +19,16 @@ export default class SearchBar{
     }
 
     search(){
+        //Eviter les injections sql en enlevant la possibilité de mettre des chiffres et des caractères spéciaux
         this.inputValue = normalize(this.input.value);
+        const userInput = this.inputValue;
+        const regex = /^[a-zA-Z\s]+$/; // regex pour vérifier les lettres et espaces
+
+        if (!regex.test(userInput)) {
+            console.log("L'entrée contient des caractères non autorisés.");
+            return;
+        }
+        
         if(this.inputValue.length >= 3 ){
             const matchingRecipeIds = [];
             recipes.forEach(recipe => {
