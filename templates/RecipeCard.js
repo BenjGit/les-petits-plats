@@ -1,5 +1,3 @@
-import SortingOptions from "./SortingOptions.js";
-
 export default class RecipeCard{
     constructor(recipe){
         this.recipe = recipe;

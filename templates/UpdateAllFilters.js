@@ -1,4 +1,3 @@
-import { recipes } from "../Recipe.js";
 import SortingButtons from "../models/SortingButtons.js";
 import SortingOptions from "./SortingOptions.js";
 import RecipeCounter from "../models/RecipeCounter.js";
@@ -20,7 +19,6 @@ export default function updateAllFilters(recipes) {
     allUstensils = [...new Set(allUstensils)];
     allIngredients = [...new Set(allIngredients)];
     allAppliances = [...new Set (allAppliances)];
-    console.log(allUstensils);
 
     const ingredientsOption = new SortingOptions(allIngredients,"Ingrédients","filter-bar-ingredients");
     const ustensilsOption = new SortingOptions(allUstensils,"Ustensiles","filter-bar-ustensils");
@@ -33,23 +31,4 @@ export default function updateAllFilters(recipes) {
     new SortingButtons();
     new RecipeCounter();
 
-    return {
-        getAllIngredients: () => allIngredients,
-        getAllUstensils: () => allUstensils,
-        getAllAppliances: () => allAppliances,
-        setIngredients: (ingredients) => {
-            allIngredients = ingredients;
-          }
-    };
 }
-
-// export function createButtons(ingredients){
-//     new SortingOptions(ingredients,"Ingrédients","filter-bar-ingredients");
-//     new SortingOptions(allUstensils,"Ustensiles","filter-bar-ustensils");
-//     new SortingOptions(allAppliances,"Appareils","filter-bar-appliances");
-
-//     new SortingButtons();
-// }
-
-// updateAllFilters(recipes);
-// createButtons(allIngredients);

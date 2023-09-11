@@ -1,7 +1,4 @@
 import { recipes } from "../Recipe.js";
-import SortingButtons from "../models/SortingButtons.js";
-import SortingOptions from "./SortingOptions.js";
-import RecipeCounter from "../models/RecipeCounter.js";
 import normalize from "../models/Normalize.js";
 import RecipeCard from "./RecipeCard.js";
 import updateAllFilters from "./UpdateAllFilters.js";
