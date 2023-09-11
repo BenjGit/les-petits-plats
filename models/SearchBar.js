@@ -1,8 +1,5 @@
 import { recipes } from "../Recipe.js";
 import RecipeCard from "../templates/RecipeCard.js";
-import SortingOptions from "../templates/SortingOptions.js";
-import SortingButtons from "./SortingButtons.js";
-import RecipeCounter from "./RecipeCounter.js";
 import TagManager from "../templates/TagManager.js";
 import normalize from "./Normalize.js";
 import updateAllFilters from "../templates/UpdateAllFilters.js";

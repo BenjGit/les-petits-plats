@@ -1,4 +1,3 @@
-import { recipes } from "../Recipe.js";
 import SortingButtons from "../models/SortingButtons.js";
 import SortingOptions from "./SortingOptions.js";
 import RecipeCounter from "../models/RecipeCounter.js";
@@ -20,7 +19,6 @@ export default function updateAllFilters(recipes) {
     allUstensils = [...new Set(allUstensils)];
     allIngredients = [...new Set(allIngredients)];
     allAppliances = [...new Set (allAppliances)];
-    console.log(allUstensils);
 
     const ingredientsOption = new SortingOptions(allIngredients,"Ingrédients","filter-bar-ingredients");
     const ustensilsOption = new SortingOptions(allUstensils,"Ustensiles","filter-bar-ustensils");

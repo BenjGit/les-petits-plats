@@ -1,5 +1,4 @@
 import normalize from "../models/Normalize.js";
-import SortingButtons from "../models/SortingButtons.js";
 import TagManager from "./TagManager.js";
 
 export default class SortingOptions {
